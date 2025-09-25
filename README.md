@@ -39,15 +39,20 @@ Le stockage peut se faire via :
 
 - Fichier JSON
 - Base SQLite avec GORM (par défaut)
+- Mémoire
 
-Pour changer le backend, modifiez `root.go` :
-
-```go
-store := storage.NewJsonStore("./contacts.json")
-
-database.ConnectDB()
-store := storage.NewGormStore()
+```yaml
+storage:
+  type: gorm # "gorm", "json" ou "memory"
+  sqlite_file: "./contacts.db"
+  json_file: "./contacts.json"
 ```
+
+- `gorm` : stockage via SQLite avec GORM
+- `json` : stockage dans un fichier JSON
+- `memory` : stockage temporaire en mémoire
+
+Le choix du backend se fait automatiquement via le fichier de configuration, aucun changement de code n’est nécessaire.
 
 ## Structure du projet
 
@@ -55,6 +60,7 @@ store := storage.NewGormStore()
 cli-contact-v2/
 ├── cmd/
 │ └── crm/
+├── config/
 ├── internal/
 │ ├── app/
 │ ├── database/
@@ -68,9 +74,7 @@ cli-contact-v2/
 
 ## Utilisation
 
-### Menu interactif
-
-_Lancer le programme. Puis suivre les instructions pour :_
+_Lancer le programme. Un menu interactif s'affiche, suivre les instructions pour :_
 
 1. Ajouter un contact
 2. Lister les contacts

@@ -1,0 +1,4 @@
+storage:
+  type: gorm
+  sqlite_file: "./contacts.db"
+  json_file: "./contacts.json"

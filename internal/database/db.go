@@ -5,15 +5,16 @@ import (
 
 	"github.com/armanceau/cli-contact-v2/internal/models"
 	"gorm.io/gorm"
+
 	// "gorm.io/driver/sqlite" // Sqlite driver based on CGO
 	"github.com/glebarez/sqlite" // Pure go SQLite driver, checkout https://github.com/glebarez/sqlite for details
 )
 
 var DB *gorm.DB
 
-func ConnectDB() {
+func ConnectDB(path string) {
 	var err error
-	DB, err = gorm.Open(sqlite.Open("contacts.db"), &gorm.Config{})
+	DB, err = gorm.Open(sqlite.Open(path), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("Echec de la connexion à la base de données : %v", err)
 	}
